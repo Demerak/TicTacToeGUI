@@ -34,6 +34,7 @@ public class GraphicalView extends JFrame implements View {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(600, 600);
+        setResizable(false);
         setVisible(true);
 
     }
@@ -48,6 +49,8 @@ public class GraphicalView extends JFrame implements View {
     }
 
     public void update() {
+        // I change my mind using this update method
+        // To delete and need to change in TicTacToe.java
         ;
     }
 

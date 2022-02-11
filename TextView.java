@@ -7,7 +7,12 @@ public class TextView implements View {
     }
 
     public void update() {
+
+        if (game.gameState == GameState.PLAYING) {
+            System.out.printf("%s turn to play \n", game.nextCellValue().name());
+        }
         System.out.println(game.toString());
+
     }
 
 }

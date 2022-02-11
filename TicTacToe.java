@@ -1,7 +1,12 @@
-
+import java.awt.*;
+import java.awt.event.*;
 import java.io.Console;
 
-public class TicTacToe {
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
+public class TicTacToe implements ActionListener {
 
     // Model
     TicTacToeGame game;
@@ -13,6 +18,9 @@ public class TicTacToe {
     int lines = 3, columns = 3, win = 3;
     Console console = System.console();
 
+    ImageIcon x;
+    ImageIcon o;
+
     public TicTacToe(int lines, int columns) {
         this(lines, columns, 3);
     }
@@ -22,6 +30,9 @@ public class TicTacToe {
         this.lines = lines;
         this.columns = columns;
         this.win = win;
+
+        x = new ImageIcon(getClass().getResource("images//x.png"));
+        o = new ImageIcon(getClass().getResource("images//o.png"));
 
         if (lines < 2) {
             System.out.println("Invalid argument, using default...");
@@ -42,20 +53,14 @@ public class TicTacToe {
 
     public void startGame() {
 
-        views = new View[1];
+        views = new View[2];
         numberOfViews = 0;
 
         game = new TicTacToeGame(lines, columns, win);
 
+        register(new GraphicalView(game, this));
         register(new TextView(game));
 
-        // while (game.getGameState() == GameState.PLAYING) {
-        // System.out.println(game.toString());
-        // System.out.printf("%s to play: ", game.nextCellValue().name());
-        // String index = System.console().readLine();
-        // int i = Integer.parseInt(index) - 1;
-        // game.play(i);
-        // }
         update();
 
     }
@@ -69,6 +74,36 @@ public class TicTacToe {
         for (View view : views) {
             view.update();
         }
+    }
+
+    private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {
+        Image img = icon.getImage();
+        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight, java.awt.Image.SCALE_SMOOTH);
+        return new ImageIcon(resizedImage);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+
+        if (game.getGameState() == GameState.PLAYING) {
+            JButton pressedButton = (JButton) e.getSource();
+            int index = Integer.parseInt(pressedButton.getName());
+
+            // change the button to the corresponding CellValue
+            if (game.nextCellValue() == CellValue.X) {
+                pressedButton.setIcon(resizeIcon(x, pressedButton.getWidth(), pressedButton.getHeight()));
+            } else if (game.nextCellValue() == CellValue.O) {
+                pressedButton.setIcon(resizeIcon(o, pressedButton.getWidth(), pressedButton.getHeight()));
+            }
+
+            game.play(index);
+
+            GraphicalView view = (GraphicalView) views[0];
+
+            view.setControlPanel();
+
+            update();
+        }
+
     }
 
 }
