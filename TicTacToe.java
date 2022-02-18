@@ -21,6 +21,10 @@ public class TicTacToe implements ActionListener {
     ImageIcon x;
     ImageIcon o;
 
+    public TicTacToe() {
+        this(3, 3, 3);
+    }
+
     public TicTacToe(int lines, int columns) {
         this(lines, columns, 3);
     }

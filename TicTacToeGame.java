@@ -42,12 +42,7 @@ public class TicTacToeGame {
     public TicTacToeGame() {
 
         // MY CODE HERE
-        this.gameState = GameState.PLAYING;
-        this.lines = 3;
-        this.columns = 3;
-        this.sizeWin = 3;
-        this.board = new CellValue[this.lines * this.columns];
-        Arrays.fill(this.board, CellValue.EMPTY); // fill array with empty CellValue
+        this(3, 3, 3);
 
     }
 
@@ -64,12 +59,7 @@ public class TicTacToeGame {
     public TicTacToeGame(int lines, int columns) {
 
         // MY CODE HERE
-        this.gameState = GameState.PLAYING;
-        this.lines = lines;
-        this.columns = columns;
-        this.sizeWin = 3;
-        this.board = new CellValue[columns * lines];
-        Arrays.fill(this.board, CellValue.EMPTY); // fill array with empty CellValue
+        this(lines, columns, 3);
 
     }
 
